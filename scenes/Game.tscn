@@ -1,0 +1,134 @@
+[gd_scene format=3 uid="uid://dm3s4beseakr5"]
+
+[ext_resource type="PackedScene" uid="uid://bp8tbcfy2tss0" path="res://scenes/LettreCase.tscn" id="1_ibkli"]
+[ext_resource type="PackedScene" uid="uid://c8qhxhd2dh5qf" path="res://scenes/Keyboard.tscn" id="2_qbsmt"]
+
+[sub_resource type="GDScript" id="GDScript_ve7bo"]
+resource_name = "MainScript"
+script/source = "extends Control
+
+@export var lettre_case_scene: PackedScene;
+@onready var game_panel = $GamePanel/GridContainer;
+@onready var grid_container = $GamePanel/GridContainer;
+
+const word = \"FONDU\"
+
+var current_line = 0;
+var current_column = 0;
+
+var concated_keys: String = \"\"
+
+func _ready() -> void:
+	for line in range(6):
+		for column in range(5):
+			var lettre_case_instance = lettre_case_scene.instantiate();
+			game_panel.add_child(lettre_case_instance);
+
+func _on_keyboard_key_hit(key: String) -> void:
+	if current_column < 5:
+		get_game_panel_child().get_node(\"ColorRect/Label\").set_text(key);
+		concated_keys = concated_keys.insert(concated_keys.length(), key);
+
+		if current_column != 5:
+			current_column += 1;
+	
+func _on_keyboard_erase() -> void:
+	if current_column >= 0:
+		if current_column > 0:
+			current_column -= 1;
+
+		get_game_panel_child().get_node(\"ColorRect/Label\").set_text(\"\");
+		concated_keys = concated_keys.left(-1);
+
+func _on_keyboard_validate() -> void:
+	game_loop()
+	
+func game_loop() -> void:
+	var not_in_good_place_indexes = [];
+	
+	for i in range(5):
+		if word[i] == concated_keys[i]:
+			var child = get_child_by_index(i);
+			child.set_state(Enums.State.GOOD_PLACE);
+		else:
+			not_in_good_place_indexes.append(i);
+	
+	var compared_index = [];
+	for i in not_in_good_place_indexes:
+		var exists = false;
+
+		for j in not_in_good_place_indexes:
+			exists = concated_keys[i] == word[j] && !compared_index.has(j)
+			if exists:
+				compared_index.append(j);
+				break;
+				
+		var child = get_child_by_index(i);
+		child.set_state(Enums.State.BAD_PLACE if exists else Enums.State.NOT_IN_WORD);
+
+	concated_keys = \"\";
+	current_line += 1;
+	current_column = 0;
+
+func get_game_panel_child() -> PanelContainer:
+	return get_child_by_index(current_column);
+	
+func get_child_by_index(column: int) -> PanelContainer:
+	var child_index = (5 * current_line) + column;
+	return game_panel.get_child(child_index);
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_ibkli"]
+font_size = 30
+
+[node name="Control" type="Control" unique_id=197594796]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_ve7bo")
+lettre_case_scene = ExtResource("1_ibkli")
+
+[node name="Label" type="Label" parent="." unique_id=731966766]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -134.0
+offset_top = 20.0
+offset_right = 134.0
+offset_bottom = 62.0
+grow_horizontal = 2
+text = "MO MO MO Motus"
+label_settings = SubResource("LabelSettings_ibkli")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GamePanel" type="VBoxContainer" parent="." unique_id=168758028]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+
+[node name="GridContainer" type="GridContainer" parent="GamePanel" unique_id=1010066562]
+layout_mode = 2
+columns = 5
+
+[node name="Keyboard" parent="." unique_id=1486544872 instance=ExtResource("2_qbsmt")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = 170.0
+offset_bottom = 170.0
+
+[connection signal="erase" from="Keyboard" to="." method="_on_keyboard_erase"]
+[connection signal="key_hit" from="Keyboard" to="." method="_on_keyboard_key_hit"]
+[connection signal="validate" from="Keyboard" to="." method="_on_keyboard_validate"]

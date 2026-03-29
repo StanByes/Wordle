@@ -1,0 +1,515 @@
+[gd_scene format=3 uid="uid://c8qhxhd2dh5qf"]
+
+[sub_resource type="GDScript" id="GDScript_hqm15"]
+resource_name = "KeyboardScript"
+script/source = "extends Control
+
+signal key_hit
+signal erase
+signal validate
+
+func _on_button_press(event: InputEvent, key: String) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		key_hit.emit(key);
+
+func _on_erase_button_press(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		erase.emit();
+
+func _on_validate_button_press(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		validate.emit();
+"
+
+[node name="Keyboard" type="Control" unique_id=1486544872]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = SubResource("GDScript_hqm15")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1297869623]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -240.0
+offset_right = 240.0
+offset_bottom = 188.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer" unique_id=22077558]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 0
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
+columns = 10
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=1751986835]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect" unique_id=488452222]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect2" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=1729183839]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect2" unique_id=364282379]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "Z"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect3" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=1383258239]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect3" unique_id=1753693221]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "E"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect4" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=1038048879]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect4" unique_id=1061161450]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "R"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect5" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=684684886]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect5" unique_id=1725098823]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "T"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect6" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=1113651672]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect6" unique_id=645707347]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "Y"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect7" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=359380154]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect7" unique_id=514927734]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "U"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect8" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=1843909320]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect8" unique_id=1668701285]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "I"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect9" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=500869830]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect9" unique_id=1569126108]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "O"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect10" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=2043349226]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect10" unique_id=279676341]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "P"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect11" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=2000137460]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect11" unique_id=105593276]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "Q"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect12" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=346925424]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect12" unique_id=755593172]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "S"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect13" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=679273194]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect13" unique_id=1988055928]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "D"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect14" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=703318389]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect14" unique_id=375979964]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "F"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect15" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=1765002534]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect15" unique_id=269446636]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "G"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect16" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=1747196975]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect16" unique_id=189980978]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "H"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect17" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=1130744586]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect17" unique_id=1441257901]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "J"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect18" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=2060777006]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect18" unique_id=119546185]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "K"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect19" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=520526775]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect19" unique_id=1934720012]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "L"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect20" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=1847200831]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect20" unique_id=814221465]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "M"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Erase" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=380831019]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/Erase" unique_id=1700309924]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "⌫"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Empty" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=1510528073]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="ColorRect21" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=878604132]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect21" unique_id=1822411360]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "W"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect22" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=997509615]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect22" unique_id=259981956]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "X"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect23" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=1923879017]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect23" unique_id=2010513452]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "C"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect24" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=93428259]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect24" unique_id=137145317]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "V"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect25" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=798370089]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect25" unique_id=537440783]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "B"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect26" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=1744377514]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect26" unique_id=1504225460]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "N"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Empty2" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=411763873]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Validate" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=1494629937]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/Validate" unique_id=1133305115]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+text = "GO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect/Label" to="." method="_on_button_press" binds= ["A"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect2/Label" to="." method="_on_button_press" binds= ["Z"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect3/Label" to="." method="_on_button_press" binds= ["E"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect4/Label" to="." method="_on_button_press" binds= ["R"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect5/Label" to="." method="_on_button_press" binds= ["T"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect6/Label" to="." method="_on_button_press" binds= ["Y"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect7/Label" to="." method="_on_button_press" binds= ["U"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect8/Label" to="." method="_on_button_press" binds= ["I"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect9/Label" to="." method="_on_button_press" binds= ["O"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect10/Label" to="." method="_on_button_press" binds= ["P"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect11/Label" to="." method="_on_button_press" binds= ["Q"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect12/Label" to="." method="_on_button_press" binds= ["S"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect13/Label" to="." method="_on_button_press" binds= ["D"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect14/Label" to="." method="_on_button_press" binds= ["F"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect15/Label" to="." method="_on_button_press" binds= ["G"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect16/Label" to="." method="_on_button_press" binds= ["H"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect17/Label" to="." method="_on_button_press" binds= ["J"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect18/Label" to="." method="_on_button_press" binds= ["K"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect19/Label" to="." method="_on_button_press" binds= ["L"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect20/Label" to="." method="_on_button_press" binds= ["M"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/Erase/Label" to="." method="_on_erase_button_press"]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect21/Label" to="." method="_on_button_press" binds= ["W"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect22/Label" to="." method="_on_button_press" binds= ["X"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect23/Label" to="." method="_on_button_press" binds= ["C"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect24/Label" to="." method="_on_button_press" binds= ["V"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect25/Label" to="." method="_on_button_press" binds= ["B"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect26/Label" to="." method="_on_button_press" binds= ["N"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/Validate/Label" to="." method="_on_validate_button_press"]

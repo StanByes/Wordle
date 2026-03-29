@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bp8tbcfy2tss0"]
+
+[sub_resource type="GDScript" id="GDScript_p2wks"]
+resource_name = "LettreCaseScript"
+script/source = "extends PanelContainer
+
+func set_letter(letter: String):
+	$ColorRect/Label.set_text(letter)
+	
+func set_state(state: Enums.State):
+	var color;
+	match state:
+		Enums.State.NOT_IN_WORD: color = Color(0.4, 0.4, 0.4)	
+		Enums.State.BAD_PLACE: color = Color(1, 0.45, 0)
+		Enums.State.GOOD_PLACE: color = Color(0, 0.75, 0)
+	
+	$ColorRect.set_color(color)
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_p2wks"]
+
+[node name="LettreCase" type="PanelContainer" unique_id=247573407]
+custom_minimum_size = Vector2(60, 60)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = SubResource("GDScript_p2wks")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=975143279]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="ColorRect" unique_id=350283636]
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 60.0
+label_settings = SubResource("LabelSettings_p2wks")
+horizontal_alignment = 1
+vertical_alignment = 1

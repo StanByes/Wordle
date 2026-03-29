@@ -1,0 +1,5 @@
+enum State {
+	NOT_IN_WORD,
+	BAD_PLACE,
+	GOOD_PLACE
+}
