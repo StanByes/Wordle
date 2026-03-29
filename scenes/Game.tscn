@@ -11,7 +11,7 @@ script/source = "extends Control
 @onready var game_panel = $GamePanel/GridContainer;
 @onready var grid_container = $GamePanel/GridContainer;
 
-const word = \"FONDU\"
+const word = \"\"
 
 var current_line = 0;
 var current_column = 0;
