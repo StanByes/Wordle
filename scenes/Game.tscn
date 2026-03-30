@@ -12,7 +12,8 @@ script/source = "extends Control
 @onready var game_panel = $GamePanel/GridContainer;
 @onready var keyboard = $Keyboard;
 
-const word = \"\"
+var words = [];
+var word = \"\";
 
 var current_line = 0;
 var current_column = 0;
@@ -24,6 +25,23 @@ func _ready() -> void:
 		for column in range(5):
 			var lettre_case_instance = lettre_case_scene.instantiate();
 			game_panel.add_child(lettre_case_instance);
+			
+	var file: FileAccess = FileAccess.open(\"res://externals/words.csv\", FileAccess.READ);
+	if file == null:
+		printerr(\"Erreur d'ouverture du fichier des mots : %s\" % FileAccess.get_open_error());
+		return;
+	
+	# Skip the header	
+	file.get_line();
+	
+	while not file.eof_reached():
+		var word_in_line = file.get_csv_line();
+		words.append(word_in_line[0].to_upper());
+	
+	file.close();
+	generate_word();
+	print(word);
+	
 
 func _on_keyboard_key_hit(key: String) -> void:
 	if current_column < 5:
@@ -80,6 +98,9 @@ func get_game_panel_child() -> PanelContainer:
 func get_child_by_index(column: int) -> PanelContainer:
 	var child_index = (5 * current_line) + column;
 	return game_panel.get_child(child_index);
+	
+func generate_word() -> void:
+	word = words.pick_random();
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_ibkli"]
