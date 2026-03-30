@@ -4,6 +4,8 @@
 resource_name = "LettreCaseScript"
 script/source = "extends PanelContainer
 
+const DEFAULT_COLOR = Color();
+
 func set_letter(letter: String):
 	$ColorRect/Label.set_text(letter)
 	
@@ -15,6 +17,10 @@ func set_state(state: Enums.State):
 		Enums.State.GOOD_PLACE: color = Color(0, 0.75, 0)
 	
 	$ColorRect.set_color(color)
+
+func reset() -> void:
+	$ColorRect.set_color(DEFAULT_COLOR);
+	$ColorRect/Label.set_text(\"\");
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_p2wks"]

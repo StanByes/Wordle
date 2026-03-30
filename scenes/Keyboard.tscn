@@ -14,7 +14,11 @@ const KEYS = [
 	\"W\", \"X\", \"C\", \"V\", \"B\", \"N\"
 ];
 
+const DEFAULT_COLOR = Color(0.13, 0.13, 0.13);
 const DISABLED_COLOR = Color(0.2, 0.2, 0.2);
+
+@onready var grid_container = $VBoxContainer/GridContainer;
+var disabled_keys = [];
 
 func _on_button_press(event: InputEvent, key: String) -> void:
 	if event is InputEventMouseButton and event.pressed:
@@ -31,7 +35,13 @@ func _on_validate_button_press(event: InputEvent) -> void:
 func disable_key(key: String) -> void:
 	for i in range(26):
 		if KEYS[i] == key:
-			get_node(\"VBoxContainer/GridContainer/ColorRect\" + str(i + 1)).set_color(DISABLED_COLOR);
+			grid_container.get_node(\"ColorRect\" + str(i + 1)).set_color(DISABLED_COLOR);
+			disabled_keys.append(str(i + 1));
+			
+func reset() -> void:
+	for key in disabled_keys:
+		grid_container.get_node(\"ColorRect\" + key).set_color(DEFAULT_COLOR);
+	disabled_keys = [];
 "
 
 [node name="Keyboard" type="Control" unique_id=1486544872]
@@ -69,7 +79,7 @@ columns = 10
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 2
-color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+color = Color(0.13333334, 0.13333334, 0.13333334, 1)
 
 [node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect1" unique_id=488452222]
 layout_mode = 0

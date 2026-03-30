@@ -10,9 +10,13 @@ script/source = "extends Control
 @export var lettre_case_scene: PackedScene;
 
 @onready var game_panel = $GamePanel/GridContainer;
+@onready var information = $Information;
 @onready var keyboard = $Keyboard;
+@onready var play_again = $PlayAgain;
 
 var words = [];
+
+var in_progress = true;
 var word = \"\";
 
 var current_line = 0;
@@ -40,18 +44,27 @@ func _ready() -> void:
 	
 	file.close();
 	generate_word();
-	print(word);
 	
 
 func _on_keyboard_key_hit(key: String) -> void:
+	if not in_progress:
+		return;
+
+	clear_information();
+
 	if current_column < 5:
 		get_game_panel_child().get_node(\"ColorRect/Label\").set_text(key);
 		concated_keys = concated_keys.insert(concated_keys.length(), key);
 
 		if current_column != 5:
 			current_column += 1;
-	
+
 func _on_keyboard_erase() -> void:
+	if not in_progress:
+		return;
+
+	clear_information();
+
 	if current_column >= 0:
 		if current_column > 0:
 			current_column -= 1;
@@ -60,9 +73,16 @@ func _on_keyboard_erase() -> void:
 		concated_keys = concated_keys.left(-1);
 
 func _on_keyboard_validate() -> void:
+	if not in_progress:
+		return;
+
 	game_loop()
-	
+
 func game_loop() -> void:
+	if not words.has(concated_keys):
+		information.set_text(\"Ce mot n'est pas présent dans la liste des mots disponibles\");
+		return;
+
 	var not_in_good_place_indexes = [];
 	
 	for i in range(5):
@@ -71,6 +91,12 @@ func game_loop() -> void:
 			child.set_state(Enums.State.GOOD_PLACE);
 		else:
 			not_in_good_place_indexes.append(i);
+			
+	if not_in_good_place_indexes.size() == 0:
+		in_progress = false;
+		information.set_text(\"Victoire ! Le mot était %s\" % word);
+		play_again.set_visible(true);
+		return;
 	
 	var compared_index = [];
 	for i in not_in_good_place_indexes:
@@ -88,9 +114,14 @@ func game_loop() -> void:
 		if (!exists):
 			keyboard.disable_key(concated_keys[i]);
 
-	concated_keys = \"\";
+	if current_line == 5:
+		in_progress = false;
+		information.set_text(\"Défaite ! Le mot était %s\" % word);
+		play_again.set_visible(true);
+		return;
+
 	current_line += 1;
-	current_column = 0;
+	clear_after_loop();
 
 func get_game_panel_child() -> PanelContainer:
 	return get_child_by_index(current_column);
@@ -101,10 +132,34 @@ func get_child_by_index(column: int) -> PanelContainer:
 	
 func generate_word() -> void:
 	word = words.pick_random();
+	
+func clear_information() -> void:
+	if information.text != \"\":
+		information.set_text(\"\");
+
+func clear_after_loop() -> void:
+	concated_keys = \"\";
+	current_column = 0;
+
+func _on_play_again_pressed() -> void:
+	for i in range(30):
+		game_panel.get_child(i).reset();
+	keyboard.reset();
+	
+	generate_word();
+	current_line = 0;
+	clear_after_loop();
+	
+	information.set_text(\"\");
+	in_progress = true;
+	
+	play_again.set_visible(false);
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_ibkli"]
 font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_qbsmt"]
 
 [node name="Control" type="Control" unique_id=197594796]
 layout_mode = 3
@@ -116,7 +171,7 @@ grow_vertical = 2
 script = SubResource("GDScript_ve7bo")
 lettre_case_scene = ExtResource("1_ibkli")
 
-[node name="Label" type="Label" parent="." unique_id=731966766]
+[node name="Title" type="Label" parent="." unique_id=731966766]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -128,6 +183,20 @@ offset_bottom = 62.0
 grow_horizontal = 2
 text = "WORDLE"
 label_settings = SubResource("LabelSettings_ibkli")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Information" type="Label" parent="." unique_id=1967316091]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -134.0
+offset_top = 53.0
+offset_right = 134.0
+offset_bottom = 95.0
+grow_horizontal = 2
+label_settings = SubResource("LabelSettings_qbsmt")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -154,6 +223,23 @@ anchor_bottom = 0.5
 offset_top = 170.0
 offset_bottom = 170.0
 
+[node name="PlayAgain" type="Button" parent="." unique_id=712139065]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -38.0
+offset_top = -40.0
+offset_right = 38.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "REJOUER"
+
 [connection signal="erase" from="Keyboard" to="." method="_on_keyboard_erase"]
 [connection signal="key_hit" from="Keyboard" to="." method="_on_keyboard_key_hit"]
 [connection signal="validate" from="Keyboard" to="." method="_on_keyboard_validate"]
+[connection signal="pressed" from="PlayAgain" to="." method="_on_play_again_pressed"]
