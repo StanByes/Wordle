@@ -8,8 +8,9 @@ resource_name = "MainScript"
 script/source = "extends Control
 
 @export var lettre_case_scene: PackedScene;
+
 @onready var game_panel = $GamePanel/GridContainer;
-@onready var grid_container = $GamePanel/GridContainer;
+@onready var keyboard = $Keyboard;
 
 const word = \"\"
 
@@ -65,6 +66,9 @@ func game_loop() -> void:
 				
 		var child = get_child_by_index(i);
 		child.set_state(Enums.State.BAD_PLACE if exists else Enums.State.NOT_IN_WORD);
+		
+		if (!exists):
+			keyboard.disable_key(concated_keys[i]);
 
 	concated_keys = \"\";
 	current_line += 1;
@@ -101,7 +105,7 @@ offset_top = 20.0
 offset_right = 134.0
 offset_bottom = 62.0
 grow_horizontal = 2
-text = "MO MO MO Motus"
+text = "WORDLE"
 label_settings = SubResource("LabelSettings_ibkli")
 horizontal_alignment = 1
 vertical_alignment = 1

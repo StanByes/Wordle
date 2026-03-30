@@ -8,6 +8,14 @@ signal key_hit
 signal erase
 signal validate
 
+const KEYS = [
+	\"A\", \"Z\", \"E\", \"R\", \"T\", \"Y\", \"U\", \"I\", \"O\", \"P\",
+	\"Q\", \"S\", \"D\", \"F\", \"G\", \"H\", \"J\", \"K\", \"L\", \"M\",
+	\"W\", \"X\", \"C\", \"V\", \"B\", \"N\"
+];
+
+const DISABLED_COLOR = Color(0.2, 0.2, 0.2);
+
 func _on_button_press(event: InputEvent, key: String) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		key_hit.emit(key);
@@ -19,6 +27,11 @@ func _on_erase_button_press(event: InputEvent) -> void:
 func _on_validate_button_press(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		validate.emit();
+
+func disable_key(key: String) -> void:
+	for i in range(26):
+		if KEYS[i] == key:
+			get_node(\"VBoxContainer/GridContainer/ColorRect\" + str(i + 1)).set_color(DISABLED_COLOR);
 "
 
 [node name="Keyboard" type="Control" unique_id=1486544872]
@@ -52,13 +65,13 @@ theme_override_constants/h_separation = 6
 theme_override_constants/v_separation = 6
 columns = 10
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=1751986835]
+[node name="ColorRect1" type="ColorRect" parent="VBoxContainer/GridContainer" unique_id=1751986835]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 2
 color = Color(0.13319641, 0.13319641, 0.13319638, 1)
 
-[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect" unique_id=488452222]
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer/ColorRect1" unique_id=488452222]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -485,7 +498,7 @@ text = "GO"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect/Label" to="." method="_on_button_press" binds= ["A"]]
+[connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect1/Label" to="." method="_on_button_press" binds= ["A"]]
 [connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect2/Label" to="." method="_on_button_press" binds= ["Z"]]
 [connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect3/Label" to="." method="_on_button_press" binds= ["E"]]
 [connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect4/Label" to="." method="_on_button_press" binds= ["R"]]
