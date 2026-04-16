@@ -42,6 +42,19 @@ func reset() -> void:
 	for key in disabled_keys:
 		grid_container.get_node(\"ColorRect\" + key).set_color(DEFAULT_COLOR);
 	disabled_keys = [];
+
+var letter_regex = RegEx.create_from_string(\"^([A-Z]){1}$\");
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed:
+		var code = DisplayServer.keyboard_get_keycode_from_physical(event.physical_keycode);
+		if event.physical_keycode == KEY_ENTER:
+			validate.emit();
+		elif event.physical_keycode == KEY_BACKSPACE:
+			erase.emit();
+		else:
+			var text_keycode = OS.get_keycode_string(code);
+			if letter_regex.search(text_keycode):
+				key_hit.emit(text_keycode);
 "
 
 [node name="Keyboard" type="Control" unique_id=1486544872]
@@ -508,6 +521,7 @@ text = "GO"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[connection signal="gui_input" from="." to="." method="_input"]
 [connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect1/Label" to="." method="_on_button_press" binds= ["A"]]
 [connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect2/Label" to="." method="_on_button_press" binds= ["Z"]]
 [connection signal="gui_input" from="VBoxContainer/GridContainer/ColorRect3/Label" to="." method="_on_button_press" binds= ["E"]]

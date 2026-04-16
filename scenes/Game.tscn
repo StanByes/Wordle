@@ -83,12 +83,14 @@ func game_loop() -> void:
 		information.set_text(\"Ce mot n'est pas présent dans la liste des mots disponibles\");
 		return;
 
+	var in_good_place_indexes = [];
 	var not_in_good_place_indexes = [];
 	
 	for i in range(5):
 		if word[i] == concated_keys[i]:
 			var child = get_child_by_index(i);
 			child.set_state(Enums.State.GOOD_PLACE);
+			in_good_place_indexes.append(i);
 		else:
 			not_in_good_place_indexes.append(i);
 			
@@ -111,7 +113,7 @@ func game_loop() -> void:
 		var child = get_child_by_index(i);
 		child.set_state(Enums.State.BAD_PLACE if exists else Enums.State.NOT_IN_WORD);
 		
-		if (!exists):
+		if (!exists && !in_good_place_indexes.has(i)):
 			keyboard.disable_key(concated_keys[i]);
 
 	if current_line == 5:
